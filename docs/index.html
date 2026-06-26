@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PC Club</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.prod.js"></script>
 </head>
@@ -26,25 +26,35 @@
     </div>
 
     <script>
-const API = '/api'
+const DATA_URL = 'data.json'
+
+const store = { data: null }
+async function loadData() {
+    const r = await fetch(DATA_URL)
+    store.data = await r.json()
+}
+
+function fmtDate(d) {
+    return new Date(d).toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+}
 
 const Home = {
     template: `
-        <div>
+        <div v-if="ready">
             <div class="hero">
                 <h1>PC Club</h1>
                 <p>Киберспортивный клуб — турниры, рейтинги, статистика</p>
             </div>
             <div class="stats">
-                <div class="stat-card"><h3>{{ stats.total_players }}</h3><p>Игроков</p></div>
-                <div class="stat-card"><h3>{{ stats.total_tournaments }}</h3><p>Турниров</p></div>
+                <div class="stat-card"><h3>{{ data.players.length }}</h3><p>Игроков</p></div>
+                <div class="stat-card"><h3>{{ data.tournaments.length }}</h3><p>Турниров</p></div>
             </div>
             <div class="sections">
                 <div class="section">
                     <h2>Топ игроков</h2>
                     <table>
                         <tr><th>#</th><th>Имя</th><th>Ник</th><th>Часов</th></tr>
-                        <tr v-for="(p, i) in topPlayers" :key="p.id">
+                        <tr v-for="(p, i) in top" :key="p.id">
                             <td>{{ i + 1 }}</td>
                             <td>{{ p.name }}</td>
                             <td>{{ p.nickname }}</td>
@@ -57,10 +67,10 @@ const Home = {
                     <h2>Ближайшие турниры</h2>
                     <table>
                         <tr><th>Турнир</th><th>Игра</th><th>Дата</th><th>Приз</th></tr>
-                        <tr v-for="t in tournaments" :key="t.id">
+                        <tr v-for="t in upcoming" :key="t.id">
                             <td>{{ t.title }}</td>
                             <td>{{ t.short_name }}</td>
-                            <td>{{ formatDate(t.date) }}</td>
+                            <td>{{ fmtDate(t.date) }}</td>
                             <td>{{ t.prize_pool }} ₽</td>
                         </tr>
                     </table>
@@ -69,26 +79,21 @@ const Home = {
             </div>
         </div>
     `,
-    data() {
-        return { stats: { total_players: 0, total_tournaments: 0 }, topPlayers: [], tournaments: [] }
+    data() { return { data: store.data, ready: !!store.data } },
+    computed: {
+        top() { return this.data.players.slice(0, 5) },
+        upcoming() { return this.data.tournaments.slice(0, 5) }
     },
-    mounted() {
-        fetch(API + '/stats').then(r => r.json()).then(d => this.stats = d)
-        fetch(API + '/top-players').then(r => r.json()).then(d => this.topPlayers = d)
-        fetch(API + '/tournaments').then(r => r.json()).then(d => this.tournaments = d.slice(0, 5))
-    },
-    methods: {
-        formatDate(d) { return new Date(d).toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) }
-    }
+    methods: { fmtDate }
 }
 
 const Players = {
     template: `
-        <div>
+        <div v-if="ready">
             <h1>Игроки</h1>
             <table>
                 <tr><th>#</th><th>Имя</th><th>Никнейм</th><th>Часов</th><th>По играм</th></tr>
-                <tr v-for="(p, i) in players" :key="p.id">
+                <tr v-for="(p, i) in data.players" :key="p.id">
                     <td>{{ i + 1 }}</td>
                     <td>{{ p.name }}</td>
                     <td><strong>{{ p.nickname }}</strong></td>
@@ -100,68 +105,66 @@ const Players = {
             </table>
         </div>
     `,
-    data() { return { players: [] } },
-    mounted() { fetch(API + '/players').then(r => r.json()).then(d => this.players = d) }
+    data() { return { data: store.data, ready: !!store.data } }
 }
 
 const Tournaments = {
     template: `
-        <div>
+        <div v-if="ready">
             <h1>Турниры</h1>
             <div class="tournament-grid">
-                <div class="tournament-card" v-for="t in tournaments" :key="t.id">
+                <div class="tournament-card" v-for="t in data.tournaments" :key="t.id">
                     <div class="tournament-header">
                         <span class="game-badge">{{ t.short_name }}</span>
                         <span :class="['status', t.status]">{{ t.status }}</span>
                     </div>
                     <h3>{{ t.title }}</h3>
                     <p>Игра: {{ t.game_name }}</p>
-                    <p>Дата: {{ formatDate(t.date) }}</p>
+                    <p>Дата: {{ fmtDate(t.date) }}</p>
                     <p>Призовой фонд: {{ t.prize_pool }} ₽</p>
                     <router-link :to="'/tournament/' + t.id" class="btn">Подробнее</router-link>
                 </div>
             </div>
         </div>
     `,
-    data() { return { tournaments: [] } },
-    mounted() { fetch(API + '/tournaments').then(r => r.json()).then(d => this.tournaments = d) },
-    methods: {
-        formatDate(d) { return new Date(d).toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) }
-    }
+    data() { return { data: store.data, ready: !!store.data } },
+    methods: { fmtDate }
 }
 
 const TournamentDetail = {
     template: `
-        <div>
+        <div v-if="ready">
             <h1>{{ t.title }}</h1>
             <div class="tournament-info">
                 <p><strong>Игра:</strong> {{ t.game_name }}</p>
-                <p><strong>Дата:</strong> {{ formatDate(t.date) }}</p>
+                <p><strong>Дата:</strong> {{ fmtDate(t.date) }}</p>
                 <p><strong>Призовой фонд:</strong> {{ t.prize_pool }} ₽</p>
                 <p><strong>Статус:</strong> <span :class="['status', t.status]">{{ t.status }}</span></p>
             </div>
             <h2>Участники</h2>
             <table>
-                <tr><th>Место</th><th>Имя</th><th>Никнейм</th><th>Приз</th></tr>
+                <tr><th>Место</th><th>Имя</th><th>Никнейм</th></tr>
                 <tr v-for="p in participants" :key="p.id">
-                    <td>{{ p.place || '-' }}</td>
+                    <td>-</td>
                     <td>{{ p.name }}</td>
                     <td><strong>{{ p.nickname }}</strong></td>
-                    <td>{{ p.prize || '-' }}</td>
                 </tr>
             </table>
             <router-link to="/tournaments" class="btn">К турнирам</router-link>
         </div>
     `,
-    data() { return { t: {}, participants: [] } },
-    mounted() {
-        fetch(API + '/tournaments/' + this.$route.params.id)
-            .then(r => r.json())
-            .then(d => { this.t = d.tournament; this.participants = d.participants })
+    data() { return { data: store.data, ready: !!store.data } },
+    computed: {
+        t() {
+            return this.data.tournaments.find(t => t.id == this.$route.params.id) || {}
+        },
+        participants() {
+            const pdata = this.data.participants.find(p => p.tournament_id == this.$route.params.id)
+            if (!pdata) return []
+            return pdata.players.map(id => this.data.players.find(p => p.id == id)).filter(Boolean)
+        }
     },
-    methods: {
-        formatDate(d) { return new Date(d).toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) }
-    }
+    methods: { fmtDate }
 }
 
 const routes = [
@@ -175,6 +178,8 @@ const router = VueRouter.createRouter({ history: VueRouter.createWebHistory(), r
 const app = Vue.createApp({})
 app.use(router)
 app.mount('#app')
+
+loadData()
     </script>
 </body>
 </html>

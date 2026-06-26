@@ -1,0 +1,32 @@
+{
+  "games": [
+    { "id": 1, "name": "Counter-Strike 2", "short_name": "CS2", "icon": "cs.png" },
+    { "id": 2, "name": "Dota 2", "short_name": "Dota", "icon": "dota.png" },
+    { "id": 3, "name": "Valorant", "short_name": "VAL", "icon": "val.png" },
+    { "id": 4, "name": "PUBG", "short_name": "PUBG", "icon": "pubg.png" }
+  ],
+  "players": [
+    { "id": 1, "name": "Ivan Petrov", "nickname": "ShadowKiller", "total_hours": 352, "games": [{"game": "CS2", "hours": 120}, {"game": "Dota", "hours": 80}, {"game": "VAL", "hours": 152}] },
+    { "id": 2, "name": "Alexey Smirnov", "nickname": "ProGamer99", "total_hours": 287, "games": [{"game": "CS2", "hours": 200}, {"game": "Dota", "hours": 87}] },
+    { "id": 3, "name": "Dmitry Ivanov", "nickname": "NightHawk", "total_hours": 245, "games": [{"game": "Dota", "hours": 180}, {"game": "PUBG", "hours": 65}] },
+    { "id": 4, "name": "Sergey Kuznetsov", "nickname": "CyberWolf", "total_hours": 312, "games": [{"game": "CS2", "hours": 150}, {"game": "VAL", "hours": 162}] },
+    { "id": 5, "name": "Andrey Popov", "nickname": "FlameStrike", "total_hours": 198, "games": [{"game": "Dota", "hours": 140}, {"game": "PUBG", "hours": 58}] },
+    { "id": 6, "name": "Maxim Vasilyev", "nickname": "IceBreaker", "total_hours": 276, "games": [{"game": "CS2", "hours": 176}, {"game": "VAL", "hours": 100}] },
+    { "id": 7, "name": "Egor Sokolov", "nickname": "DarkLord", "total_hours": 334, "games": [{"game": "Dota", "hours": 210}, {"game": "CS2", "hours": 124}] },
+    { "id": 8, "name": "Nikita Morozov", "nickname": "SilverArrow", "total_hours": 189, "games": [{"game": "VAL", "hours": 130}, {"game": "PUBG", "hours": 59}] },
+    { "id": 9, "name": "Artem Novikov", "nickname": "ThunderBolt", "total_hours": 267, "games": [{"game": "CS2", "hours": 190}, {"game": "Dota", "hours": 77}] },
+    { "id": 10, "name": "Vladimir Fedorov", "nickname": "Stealth", "total_hours": 156, "games": [{"game": "VAL", "hours": 100}, {"game": "PUBG", "hours": 56}] }
+  ],
+  "tournaments": [
+    { "id": 1, "title": "CS2 Summer Cup", "game_name": "Counter-Strike 2", "short_name": "CS2", "date": "2026-07-15T17:00:00", "prize_pool": 50000, "status": "upcoming" },
+    { "id": 2, "title": "Dota 2 Champions", "game_name": "Dota 2", "short_name": "Dota", "date": "2026-07-20T16:00:00", "prize_pool": 75000, "status": "upcoming" },
+    { "id": 3, "title": "Valorant Open", "game_name": "Valorant", "short_name": "VAL", "date": "2026-06-28T15:00:00", "prize_pool": 30000, "status": "upcoming" },
+    { "id": 4, "title": "PUBG Battle Royale", "game_name": "PUBG", "short_name": "PUBG", "date": "2026-08-01T18:00:00", "prize_pool": 40000, "status": "upcoming" }
+  ],
+  "participants": [
+    { "tournament_id": 1, "players": [1, 2, 4, 6, 7, 9] },
+    { "tournament_id": 2, "players": [3, 5, 7, 9] },
+    { "tournament_id": 3, "players": [1, 4, 6, 8, 10] },
+    { "tournament_id": 4, "players": [3, 5, 8, 10] }
+  ]
+}
