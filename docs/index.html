@@ -28,10 +28,10 @@
     <script>
 const DATA_URL = 'data.json'
 
-const store = { data: null }
+const store = Vue.reactive({ data: null })
 async function loadData() {
     const r = await fetch(DATA_URL)
-    store.data = await r.json()
+    Object.assign(store, { data: await r.json() })
 }
 
 function fmtDate(d) {
@@ -79,8 +79,9 @@ const Home = {
             </div>
         </div>
     `,
-    data() { return { data: store.data, ready: !!store.data } },
     computed: {
+        data() { return store.data },
+        ready() { return !!store.data },
         top() { return this.data.players.slice(0, 5) },
         upcoming() { return this.data.tournaments.slice(0, 5) }
     },
@@ -105,7 +106,7 @@ const Players = {
             </table>
         </div>
     `,
-    data() { return { data: store.data, ready: !!store.data } }
+    computed: { data() { return store.data }, ready() { return !!store.data } }
 }
 
 const Tournaments = {
@@ -127,7 +128,7 @@ const Tournaments = {
             </div>
         </div>
     `,
-    data() { return { data: store.data, ready: !!store.data } },
+    computed: { data() { return store.data }, ready() { return !!store.data } },
     methods: { fmtDate }
 }
 
@@ -190,8 +191,9 @@ const TournamentDetail = {
             <router-link to="/tournaments" class="btn">К турнирам</router-link>
         </div>
     `,
-    data() { return { data: store.data, ready: !!store.data } },
     computed: {
+        data() { return store.data },
+        ready() { return !!store.data },
         t() {
             return this.data.tournaments.find(t => t.id == this.$route.params.id) || {}
         },
