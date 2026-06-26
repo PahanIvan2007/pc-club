@@ -1,0 +1,40 @@
+CREATE TABLE IF NOT EXISTS games (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    short_name VARCHAR(10) NOT NULL,
+    icon VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS players (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    nickname VARCHAR(100),
+    total_hours DECIMAL(10,2) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS activity_log (
+    id SERIAL PRIMARY KEY,
+    player_id INTEGER REFERENCES players(id) ON DELETE CASCADE,
+    game_id INTEGER REFERENCES games(id) ON DELETE CASCADE,
+    hours DECIMAL(10,2) NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS tournaments (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    game_id INTEGER REFERENCES games(id) ON DELETE CASCADE,
+    date TIMESTAMP,
+    prize_pool DECIMAL(10,2) DEFAULT 0,
+    status VARCHAR(20) DEFAULT 'upcoming',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS tournament_participants (
+    id SERIAL PRIMARY KEY,
+    tournament_id INTEGER REFERENCES tournaments(id) ON DELETE CASCADE,
+    player_id INTEGER REFERENCES players(id) ON DELETE CASCADE,
+    place INTEGER,
+    prize DECIMAL(10,2) DEFAULT 0
+);
