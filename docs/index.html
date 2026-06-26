@@ -210,15 +210,9 @@ const TournamentDetail = {
         },
         bracket() {
             const saved = this.data.matches.find(m => m.tournament_id == this.$route.params.id)
-            const pdata = this.data.participants.find(p => p.tournament_id == this.$route.params.id)
-            if (!pdata) return null
-            const ids = pdata.players.map(p => p.id)
-            const total = ids.length
             if (saved) return saved
-            if (this.t.status === 'upcoming' && total > 1) {
-                return this.buildBracket(ids)
-            }
-            return null
+            const pdata = this.data.participants.find(p => p.tournament_id == this.$route.params.id)
+            return pdata ? this.buildBracket(pdata.players.map(p => p.id)) : null
         },
         champion() {
             if (this.t.status !== 'completed') return null
