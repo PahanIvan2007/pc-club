@@ -209,7 +209,16 @@ const TournamentDetail = {
             return this.data.tournaments.find(t => t.id == this.$route.params.id) || {}
         },
         bracket() {
-            return this.data.matches.find(m => m.tournament_id == this.$route.params.id)
+            const saved = this.data.matches.find(m => m.tournament_id == this.$route.params.id)
+            const pdata = this.data.participants.find(p => p.tournament_id == this.$route.params.id)
+            if (!pdata) return null
+            const ids = pdata.players.map(p => p.id)
+            const total = ids.length
+            if (saved) return saved
+            if (this.t.status === 'upcoming' && total > 1) {
+                return this.buildBracket(ids)
+            }
+            return null
         },
         champion() {
             if (this.t.status !== 'completed') return null
@@ -231,8 +240,38 @@ const TournamentDetail = {
     methods: {
         fmtDate,
         playerName(id) {
+            if (!id) return 'TBD'
             const p = this.data.players.find(p => p.id == id)
             return p ? p.nickname : '?'
+        },
+        buildBracket(ids) {
+            const rounds = []
+            let power = 1
+            while (power < ids.length) power *= 2
+            const padded = [...ids]
+            while (padded.length < power) padded.push(null)
+            const labels = ['Финал', '1/2 финала', '1/4 финала', '1/8 финала', '1/16 финала']
+            let roundIdx = 0
+            while (padded.length > 1) {
+                const pairs = []
+                for (let i = 0; i < padded.length; i += 2) {
+                    pairs.push({
+                        player1_id: padded[i],
+                        player2_id: padded[i + 1] || null,
+                        score1: null,
+                        score2: null
+                    })
+                }
+                const li = Math.floor(Math.log2(power)) - 1 - roundIdx
+                const name = labels[li] || `${Math.pow(2, li + 2)} финала`
+                rounds.push({ name, matches: pairs })
+                const next = []
+                for (let i = 0; i < pairs.length; i++) next.push(null)
+                padded.length = 0
+                padded.push(...next)
+                roundIdx++
+            }
+            return { rounds }
         }
     }
 }

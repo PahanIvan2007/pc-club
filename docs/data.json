@@ -78,51 +78,6 @@
   ],
   "matches": [
     {
-      "tournament_id": 1,
-      "rounds": [
-        {
-          "name": "1/4 финала",
-          "matches": [
-            { "player1_id": 1, "player2_id": 2, "score1": null, "score2": null },
-            { "player1_id": 4, "player2_id": 6, "score1": null, "score2": null },
-            { "player1_id": 7, "player2_id": 9, "score1": null, "score2": null },
-            { "player1_id": 3, "player2_id": 5, "score1": null, "score2": null }
-          ]
-        },
-        {
-          "name": "1/2 финала",
-          "matches": [
-            { "player1_id": null, "player2_id": null, "score1": null, "score2": null },
-            { "player1_id": null, "player2_id": null, "score1": null, "score2": null }
-          ]
-        },
-        {
-          "name": "Финал",
-          "matches": [
-            { "player1_id": null, "player2_id": null, "score1": null, "score2": null }
-          ]
-        }
-      ]
-    },
-    {
-      "tournament_id": 2,
-      "rounds": [
-        {
-          "name": "1/2 финала",
-          "matches": [
-            { "player1_id": 3, "player2_id": 5, "score1": null, "score2": null },
-            { "player1_id": 7, "player2_id": 9, "score1": null, "score2": null }
-          ]
-        },
-        {
-          "name": "Финал",
-          "matches": [
-            { "player1_id": null, "player2_id": null, "score1": null, "score2": null }
-          ]
-        }
-      ]
-    },
-    {
       "tournament_id": 3,
       "rounds": [
         {
@@ -145,24 +100,6 @@
           "name": "Финал",
           "matches": [
             { "player1_id": 1, "player2_id": 7, "score1": 3, "score2": 1 }
-          ]
-        }
-      ]
-    },
-    {
-      "tournament_id": 4,
-      "rounds": [
-        {
-          "name": "1/2 финала",
-          "matches": [
-            { "player1_id": 3, "player2_id": 5, "score1": null, "score2": null },
-            { "player1_id": 8, "player2_id": 10, "score1": null, "score2": null }
-          ]
-        },
-        {
-          "name": "Финал",
-          "matches": [
-            { "player1_id": null, "player2_id": null, "score1": null, "score2": null }
           ]
         }
       ]
