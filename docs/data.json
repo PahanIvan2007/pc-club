@@ -18,10 +18,26 @@
     { "id": 10, "name": "Vladimir Fedorov", "nickname": "Stealth", "total_hours": 156, "games": [{"game": "VAL", "hours": 100}, {"game": "PUBG", "hours": 56}] }
   ],
   "tournaments": [
-    { "id": 1, "title": "CS2 Summer Cup", "game_name": "Counter-Strike 2", "short_name": "CS2", "date": "2026-07-15T17:00:00", "prize_pool": 50000, "status": "upcoming" },
-    { "id": 2, "title": "Dota 2 Champions", "game_name": "Dota 2", "short_name": "Dota", "date": "2026-07-20T16:00:00", "prize_pool": 75000, "status": "upcoming" },
-    { "id": 3, "title": "Valorant Open", "game_name": "Valorant", "short_name": "VAL", "date": "2026-06-28T15:00:00", "prize_pool": 30000, "status": "completed" },
-    { "id": 4, "title": "PUBG Battle Royale", "game_name": "PUBG", "short_name": "PUBG", "date": "2026-08-01T18:00:00", "prize_pool": 40000, "status": "upcoming" }
+    {
+      "id": 1, "title": "CS2 Summer Cup", "game_name": "Counter-Strike 2", "short_name": "CS2",
+      "date": "2026-07-15T17:00:00", "prize_pool": 50000, "status": "upcoming",
+      "prizes": [25000, 15000, 10000]
+    },
+    {
+      "id": 2, "title": "Dota 2 Champions", "game_name": "Dota 2", "short_name": "Dota",
+      "date": "2026-07-20T16:00:00", "prize_pool": 75000, "status": "upcoming",
+      "prizes": [40000, 20000, 15000]
+    },
+    {
+      "id": 3, "title": "Valorant Open", "game_name": "Valorant", "short_name": "VAL",
+      "date": "2026-06-28T15:00:00", "prize_pool": 30000, "status": "completed",
+      "prizes": [15000, 10000, 5000]
+    },
+    {
+      "id": 4, "title": "PUBG Battle Royale", "game_name": "PUBG", "short_name": "PUBG",
+      "date": "2026-08-01T18:00:00", "prize_pool": 40000, "status": "upcoming",
+      "prizes": [20000, 12000, 8000]
+    }
   ],
   "participants": [
     {
@@ -57,6 +73,35 @@
         { "id": 5, "place": null, "prize": 0 },
         { "id": 8, "place": null, "prize": 0 },
         { "id": 10, "place": null, "prize": 0 }
+      ]
+    }
+  ],
+  "matches": [
+    {
+      "tournament_id": 3,
+      "rounds": [
+        {
+          "name": "1/4 финала",
+          "matches": [
+            { "player1_id": 1, "player2_id": 8, "score1": 2, "score2": 0 },
+            { "player1_id": 4, "player2_id": 10, "score1": 2, "score2": 1 },
+            { "player1_id": 6, "player2_id": 5, "score1": 2, "score2": 0 },
+            { "player1_id": 2, "player2_id": 7, "score1": 0, "score2": 2 }
+          ]
+        },
+        {
+          "name": "1/2 финала",
+          "matches": [
+            { "player1_id": 1, "player2_id": 4, "score1": 2, "score2": 0 },
+            { "player1_id": 6, "player2_id": 7, "score1": 0, "score2": 2 }
+          ]
+        },
+        {
+          "name": "Финал",
+          "matches": [
+            { "player1_id": 1, "player2_id": 7, "score1": 3, "score2": 1 }
+          ]
+        }
       ]
     }
   ]

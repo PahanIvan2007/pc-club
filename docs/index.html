@@ -141,6 +141,42 @@ const TournamentDetail = {
                 <p><strong>Призовой фонд:</strong> {{ t.prize_pool }} ₽</p>
                 <p><strong>Статус:</strong> <span :class="['status', t.status]">{{ t.status }}</span></p>
             </div>
+
+            <div class="prize-section">
+                <h2>Распределение призов</h2>
+                <div class="prize-podium">
+                    <div class="prize-item gold"><span class="medal">1</span>{{ t.prizes[0] }} ₽</div>
+                    <div class="prize-item silver"><span class="medal">2</span>{{ t.prizes[1] }} ₽</div>
+                    <div class="prize-item bronze"><span class="medal">3</span>{{ t.prizes[2] }} ₽</div>
+                </div>
+            </div>
+
+            <div v-if="bracket" class="bracket-section">
+                <h2>Сетка турнира</h2>
+                <div class="bracket">
+                    <div class="bracket-round" v-for="(round, ri) in bracket.rounds" :key="ri">
+                        <div class="round-label">{{ round.name }}</div>
+                        <div class="match" v-for="(m, mi) in round.matches" :key="mi"
+                             :class="{ winner: ri === bracket.rounds.length - 1 }">
+                            <div class="match-players">
+                                <div class="match-player" :class="{ win: m.score1 > m.score2 }">
+                                    <span class="nick">{{ playerName(m.player1_id) }}</span>
+                                    <span class="score">{{ m.score1 }}</span>
+                                </div>
+                                <div class="match-player" :class="{ win: m.score2 > m.score1 }">
+                                    <span class="nick">{{ playerName(m.player2_id) }}</span>
+                                    <span class="score">{{ m.score2 }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="!bracket" class="bracket-placeholder">
+                <p>Сетка появится после завершения турнира</p>
+            </div>
+
             <h2>Участники</h2>
             <table>
                 <tr><th>Место</th><th>Имя</th><th>Никнейм</th><th>Приз</th></tr>
@@ -159,6 +195,9 @@ const TournamentDetail = {
         t() {
             return this.data.tournaments.find(t => t.id == this.$route.params.id) || {}
         },
+        bracket() {
+            return this.data.matches.find(m => m.tournament_id == this.$route.params.id)
+        },
         participants() {
             const pdata = this.data.participants.find(p => p.tournament_id == this.$route.params.id)
             if (!pdata) return []
@@ -168,7 +207,13 @@ const TournamentDetail = {
             }).filter(Boolean)
         }
     },
-    methods: { fmtDate }
+    methods: {
+        fmtDate,
+        playerName(id) {
+            const p = this.data.players.find(p => p.id == id)
+            return p ? p.nickname : '?'
+        }
+    }
 }
 
 const routes = [

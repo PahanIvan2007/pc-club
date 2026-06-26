@@ -48,7 +48,34 @@ tr:hover { background: #2a2a3e; }
 .tournament-info { background: #1a1a2e; padding: 1.5rem; border-radius: 8px; border: 1px solid #333; margin-bottom: 2rem; }
 .tournament-info p { margin: 0.5rem 0; }
 
+.prize-section { background: #1a1a2e; padding: 1.5rem; border-radius: 8px; border: 1px solid #333; margin-bottom: 2rem; }
+.prize-podium { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.prize-item { display: flex; align-items: center; gap: 8px; padding: 1rem 2rem; border-radius: 8px; font-size: 1.2rem; font-weight: bold; min-width: 150px; justify-content: center; }
+.prize-item.gold { background: linear-gradient(135deg, #3a2e00, #5a4a00); border: 1px solid #ffd700; color: #ffd700; }
+.prize-item.silver { background: linear-gradient(135deg, #2a2a2e, #4a4a4e); border: 1px solid #c0c0c0; color: #c0c0c0; }
+.prize-item.bronze { background: linear-gradient(135deg, #2a1a0a, #4a2a0a); border: 1px solid #cd7f32; color: #cd7f32; }
+.medal { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; font-size: 0.85rem; font-weight: bold; }
+.gold .medal { background: #ffd700; color: #1a1a2e; }
+.silver .medal { background: #c0c0c0; color: #1a1a2e; }
+.bronze .medal { background: #cd7f32; color: #1a1a2e; }
+
+.bracket-section { background: #1a1a2e; padding: 1.5rem; border-radius: 8px; border: 1px solid #333; margin-bottom: 2rem; overflow-x: auto; }
+.bracket { display: flex; gap: 2rem; min-width: 700px; }
+.bracket-round { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+.round-label { text-align: center; color: #e94560; font-weight: bold; padding: 0.5rem; border-bottom: 1px solid #333; margin-bottom: 0.5rem; }
+.match { background: #0f0f1a; border: 1px solid #444; border-radius: 4px; overflow: hidden; }
+.match.winner { border-color: #ffd700; }
+.match-players { display: flex; flex-direction: column; }
+.match-player { display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; gap: 10px; }
+.match-player.win { color: #4ecca3; font-weight: bold; }
+.match-player.win .score { background: #1a6b3c; color: #4ecca3; }
+.match-player:not(:last-child) { border-bottom: 1px solid #333; }
+.match-player .nick { font-size: 0.85rem; }
+.match-player .score { background: #2a2a3e; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; min-width: 24px; text-align: center; }
+.bracket-placeholder { background: #1a1a2e; padding: 2rem; border-radius: 8px; text-align: center; color: #666; margin-bottom: 2rem; }
+
 @media (max-width: 768px) {
     .sections { grid-template-columns: 1fr; }
     .stats { flex-direction: column; align-items: center; }
+    .bracket { min-width: 500px; }
 }
