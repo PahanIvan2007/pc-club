@@ -20,13 +20,44 @@
   "tournaments": [
     { "id": 1, "title": "CS2 Summer Cup", "game_name": "Counter-Strike 2", "short_name": "CS2", "date": "2026-07-15T17:00:00", "prize_pool": 50000, "status": "upcoming" },
     { "id": 2, "title": "Dota 2 Champions", "game_name": "Dota 2", "short_name": "Dota", "date": "2026-07-20T16:00:00", "prize_pool": 75000, "status": "upcoming" },
-    { "id": 3, "title": "Valorant Open", "game_name": "Valorant", "short_name": "VAL", "date": "2026-06-28T15:00:00", "prize_pool": 30000, "status": "upcoming" },
+    { "id": 3, "title": "Valorant Open", "game_name": "Valorant", "short_name": "VAL", "date": "2026-06-28T15:00:00", "prize_pool": 30000, "status": "completed" },
     { "id": 4, "title": "PUBG Battle Royale", "game_name": "PUBG", "short_name": "PUBG", "date": "2026-08-01T18:00:00", "prize_pool": 40000, "status": "upcoming" }
   ],
   "participants": [
-    { "tournament_id": 1, "players": [1, 2, 4, 6, 7, 9] },
-    { "tournament_id": 2, "players": [3, 5, 7, 9] },
-    { "tournament_id": 3, "players": [1, 4, 6, 8, 10] },
-    { "tournament_id": 4, "players": [3, 5, 8, 10] }
+    {
+      "tournament_id": 1, "players": [
+        { "id": 1, "place": null, "prize": 0 },
+        { "id": 2, "place": null, "prize": 0 },
+        { "id": 4, "place": null, "prize": 0 },
+        { "id": 6, "place": null, "prize": 0 },
+        { "id": 7, "place": null, "prize": 0 },
+        { "id": 9, "place": null, "prize": 0 }
+      ]
+    },
+    {
+      "tournament_id": 2, "players": [
+        { "id": 3, "place": null, "prize": 0 },
+        { "id": 5, "place": null, "prize": 0 },
+        { "id": 7, "place": null, "prize": 0 },
+        { "id": 9, "place": null, "prize": 0 }
+      ]
+    },
+    {
+      "tournament_id": 3, "players": [
+        { "id": 1, "place": 1, "prize": 15000 },
+        { "id": 4, "place": 2, "prize": 10000 },
+        { "id": 6, "place": 3, "prize": 5000 },
+        { "id": 8, "place": 4, "prize": 0 },
+        { "id": 10, "place": 5, "prize": 0 }
+      ]
+    },
+    {
+      "tournament_id": 4, "players": [
+        { "id": 3, "place": null, "prize": 0 },
+        { "id": 5, "place": null, "prize": 0 },
+        { "id": 8, "place": null, "prize": 0 },
+        { "id": 10, "place": null, "prize": 0 }
+      ]
+    }
   ]
 }

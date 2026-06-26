@@ -143,11 +143,12 @@ const TournamentDetail = {
             </div>
             <h2>Участники</h2>
             <table>
-                <tr><th>Место</th><th>Имя</th><th>Никнейм</th></tr>
+                <tr><th>Место</th><th>Имя</th><th>Никнейм</th><th>Приз</th></tr>
                 <tr v-for="p in participants" :key="p.id">
-                    <td>-</td>
+                    <td>{{ p.place || '-' }}</td>
                     <td>{{ p.name }}</td>
                     <td><strong>{{ p.nickname }}</strong></td>
+                    <td>{{ p.prize ? p.prize + ' \u20BD' : '-' }}</td>
                 </tr>
             </table>
             <router-link to="/tournaments" class="btn">К турнирам</router-link>
@@ -161,7 +162,10 @@ const TournamentDetail = {
         participants() {
             const pdata = this.data.participants.find(p => p.tournament_id == this.$route.params.id)
             if (!pdata) return []
-            return pdata.players.map(id => this.data.players.find(p => p.id == id)).filter(Boolean)
+            return pdata.players.map(entry => {
+                const player = this.data.players.find(p => p.id == entry.id)
+                return player ? { ...player, place: entry.place, prize: entry.prize } : null
+            }).filter(Boolean)
         }
     },
     methods: { fmtDate }
