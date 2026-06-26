@@ -74,6 +74,14 @@ tr:hover { background: #2a2a3e; }
 .match-player .score { background: #2a2a3e; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; min-width: 24px; text-align: center; }
 .bracket-placeholder { background: #1a1a2e; padding: 2rem; border-radius: 8px; text-align: center; color: #666; margin-bottom: 2rem; }
 
+.champion-section { margin-bottom: 2rem; }
+.champion-card { background: linear-gradient(135deg, #2a1a00, #4a2a00); border: 2px solid #ffd700; border-radius: 12px; padding: 2rem; display: flex; align-items: center; gap: 2rem; max-width: 400px; }
+.trophy { font-size: 4rem; line-height: 1; }
+.champion-info { display: flex; flex-direction: column; gap: 4px; }
+.champion-name { font-size: 1.5rem; font-weight: bold; color: #ffd700; }
+.champion-nick { font-size: 1.1rem; color: #e0e0e0; }
+.champion-prize { font-size: 1.3rem; color: #4ecca3; font-weight: bold; }
+
 @media (max-width: 768px) {
     .sections { grid-template-columns: 1fr; }
     .stats { flex-direction: column; align-items: center; }

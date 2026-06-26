@@ -152,30 +152,41 @@ const TournamentDetail = {
                 </div>
             </div>
 
-            <div v-if="bracket" class="bracket-section">
+            <div class="bracket-section">
                 <h2>Сетка турнира</h2>
-                <div class="bracket">
+                <div v-if="bracket" class="bracket">
                     <div class="bracket-round" v-for="(round, ri) in bracket.rounds" :key="ri">
                         <div class="round-label">{{ round.name }}</div>
                         <div class="match" v-for="(m, mi) in round.matches" :key="mi"
                              :class="{ winner: ri === bracket.rounds.length - 1 }">
                             <div class="match-players">
-                                <div class="match-player" :class="{ win: m.score1 > m.score2 }">
+                                <div class="match-player" :class="{ win: m.score1 !== null && m.score1 > m.score2 }">
                                     <span class="nick">{{ playerName(m.player1_id) }}</span>
-                                    <span class="score">{{ m.score1 }}</span>
+                                    <span class="score">{{ m.score1 !== null ? m.score1 : '?' }}</span>
                                 </div>
-                                <div class="match-player" :class="{ win: m.score2 > m.score1 }">
+                                <div class="match-player" :class="{ win: m.score2 !== null && m.score2 > m.score1 }">
                                     <span class="nick">{{ playerName(m.player2_id) }}</span>
-                                    <span class="score">{{ m.score2 }}</span>
+                                    <span class="score">{{ m.score2 !== null ? m.score2 : '?' }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div v-else class="bracket-placeholder">
+                    <p>Сетка формируется</p>
+                </div>
             </div>
 
-            <div v-if="!bracket" class="bracket-placeholder">
-                <p>Сетка появится после завершения турнира</p>
+            <div v-if="champion" class="champion-section">
+                <h2>Чемпион</h2>
+                <div class="champion-card">
+                    <div class="trophy">&#127942;</div>
+                    <div class="champion-info">
+                        <div class="champion-name">{{ champion.name }}</div>
+                        <div class="champion-nick">{{ champion.nickname }}</div>
+                        <div class="champion-prize">{{ champion.prize }} &#8381;</div>
+                    </div>
+                </div>
             </div>
 
             <h2>Участники</h2>
@@ -199,6 +210,14 @@ const TournamentDetail = {
         },
         bracket() {
             return this.data.matches.find(m => m.tournament_id == this.$route.params.id)
+        },
+        champion() {
+            if (this.t.status !== 'completed') return null
+            const pdata = this.data.participants.find(p => p.tournament_id == this.$route.params.id)
+            if (!pdata) return null
+            const winner = pdata.players.find(p => p.place === 1)
+            if (!winner) return null
+            return this.data.players.find(p => p.id == winner.id) || null
         },
         participants() {
             const pdata = this.data.participants.find(p => p.tournament_id == this.$route.params.id)
