@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PC Club</title>
+    <link rel="icon" type="image/svg+xml" href="logos/logo-shield.svg">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.prod.js"></script>
@@ -12,7 +13,15 @@
     <div id="app">
         <nav>
             <div class="nav-container">
-                <router-link to="/" class="logo">PC Club</router-link>
+                <router-link to="/" class="logo">
+                    <svg viewBox="0 0 100 100" width="32" height="32" style="vertical-align:middle;margin-right:8px" aria-hidden="true">
+                        <defs><linearGradient id="sg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#e94560"/><stop offset="100%" stop-color="#d63850"/></linearGradient></defs>
+                        <path fill="#1a1a2e" d="M50 4L6 26v22c0 29 19 44 44 50 25-6 44-21 44-50V26L50 4z"/>
+                        <path fill="url(#sg)" d="M50 12L14 30v18c0 24 16 39 36 44 20-5 36-20 36-44V30L50 12z"/>
+                        <text x="50" y="65" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="900" fill="white" text-anchor="middle">PC</text>
+                    </svg>
+                    PC Club
+                </router-link>
                 <button class="hamburger" @click="menuOpen = !menuOpen">
                     <span></span><span></span><span></span>
                 </button>
@@ -51,6 +60,12 @@ const Home = {
     template: `
         <div v-if="ready">
             <div class="hero">
+                <svg class="hero-logo" viewBox="0 0 100 100" width="80" height="80" aria-hidden="true">
+                    <defs><linearGradient id="sg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#e94560"/><stop offset="100%" stop-color="#d63850"/></linearGradient></defs>
+                    <path fill="#1a1a2e" d="M50 4L6 26v22c0 29 19 44 44 50 25-6 44-21 44-50V26L50 4z"/>
+                    <path fill="url(#sg2)" d="M50 12L14 30v18c0 24 16 39 36 44 20-5 36-20 36-44V30L50 12z"/>
+                    <text x="50" y="65" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="900" fill="white" text-anchor="middle">PC</text>
+                </svg>
                 <h1>PC Club</h1>
                 <p>Киберспортивный клуб — турниры, рейтинги, статистика</p>
             </div>

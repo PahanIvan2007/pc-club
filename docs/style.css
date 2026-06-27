@@ -16,6 +16,8 @@ h1 { color: #e94560; margin-bottom: 1.5rem; }
 h2 { color: #e94560; margin-bottom: 1rem; }
 
 .hero { text-align: center; padding: 3rem 0; }
+.hero-logo { margin-bottom: 0.5rem; filter: drop-shadow(0 0 20px rgba(233,69,96,0.4)); animation: logoPulse 3s ease-in-out infinite; }
+@keyframes logoPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 30px rgba(233,69,96,0.6)); } }
 .hero h1 { font-size: 3rem; }
 .hero p { font-size: 1.2rem; color: #888; }
 
