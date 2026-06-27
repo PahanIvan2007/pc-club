@@ -280,7 +280,7 @@ const routes = [
     { path: '/tournament/:id', component: TournamentDetail }
 ]
 
-const router = VueRouter.createRouter({ history: VueRouter.createWebHistory(), routes })
+const router = VueRouter.createRouter({ history: VueRouter.createWebHashHistory(), routes })
 const app = Vue.createApp({ data() { return { menuOpen: false } } })
 app.use(router)
 app.mount('#app')
