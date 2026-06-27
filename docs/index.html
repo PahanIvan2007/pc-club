@@ -29,6 +29,12 @@
     </div>
 
     <script>
+(function(){
+    var path = window.location.pathname.slice(1)
+    if (path && !path.startsWith('pc-club') && window.location.hash.indexOf('#/') !== 0) {
+        window.location.replace('/pc-club/#' + path)
+    }
+})()
 const DATA_URL = 'data.json'
 
 const store = Vue.reactive({ data: null })

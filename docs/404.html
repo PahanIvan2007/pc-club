@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>PC Club</title>
+    <script>
+        var path = window.location.pathname.replace('/pc-club/', '').replace('/pc-club', '')
+        if (path && path !== '') {
+            window.location.href = '/pc-club/#' + path
+        } else {
+            window.location.href = '/pc-club/'
+        }
+    </script>
+</head>
+<body>
+    <p>Перенаправление...</p>
+</body>
+</html>
