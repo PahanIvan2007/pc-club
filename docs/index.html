@@ -13,10 +13,13 @@
         <nav>
             <div class="nav-container">
                 <router-link to="/" class="logo">PC Club</router-link>
-                <div class="nav-links">
-                    <router-link to="/">Главная</router-link>
-                    <router-link to="/players">Игроки</router-link>
-                    <router-link to="/tournaments">Турниры</router-link>
+                <button class="hamburger" @click="menuOpen = !menuOpen">
+                    <span></span><span></span><span></span>
+                </button>
+                <div class="nav-links" :class="{ open: menuOpen }">
+                    <router-link to="/" @click="menuOpen = false">Главная</router-link>
+                    <router-link to="/players" @click="menuOpen = false">Игроки</router-link>
+                    <router-link to="/tournaments" @click="menuOpen = false">Турниры</router-link>
                 </div>
             </div>
         </nav>
@@ -278,7 +281,7 @@ const routes = [
 ]
 
 const router = VueRouter.createRouter({ history: VueRouter.createWebHistory(), routes })
-const app = Vue.createApp({})
+const app = Vue.createApp({ data() { return { menuOpen: false } } })
 app.use(router)
 app.mount('#app')
 
